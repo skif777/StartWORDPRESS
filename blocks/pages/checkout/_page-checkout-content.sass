@@ -1,0 +1,91 @@
+/**
+ * @section Body
+ */
+body
+	font-size: 16px
+	min-width: 320px
+	line-height: 1.75
+	overflow-x: hidden
+	font-family: $default-font
+	opacity: 1
+.webfont-loaded body
+	font-family: $font1
+
+/**
+ * @section Checkout content
+ */
+main 
+  display: block
+.site
+.site-content
+	margin-left: 340px
+	position: relative
+
+/**
+ * @section Header checkout
+ */
+.entry-header
+	background-color: #fff
+	padding: 20px 0
+	width: 100%
+	border-bottom: 3px solid #2d9bea
+	box-shadow: 0 20px 80px rgba(0,0,0,.1), 0 5px 20px rgba(0,0,0,.05);
+	transform: translateY(0)
+	background-color: #fff
+	.entry-title
+		text-align: center
+		color: #333
+		text-transform: uppercase
+
+/**
+ * @section Инфо
+ */
+.woocommerce-info
+	border: 0!important
+	margin: 0!important
+	&::before
+		color: #2d9bea;
+
+/* @subsection Кнопки отрытия форм */
+.showlogin, .showcoupon
+	color: #333;
+	text-decoration: underline;
+	&:hover
+		color: #333;
+		text-decoration: underline;
+
+/**
+ * @section Форма авторизации
+ */
+.woocommerce-form-login
+	margin: 0!important
+	border: 0!important
+	border-radius: 0!important
+	color: #333!important
+	padding: 20px 15px!important
+	.lost_password 
+		margin-bottom: 0;
+		a
+			color: #333!important
+
+/* @subsection Кнопка запомнить меня */
+.woocommerce-form__label
+	margin-left: 15px!important
+
+/**
+ * @section Форма купона
+ */
+.checkout_coupon
+	border: 0!important
+	margin: 0!important
+	padding: 20px 15px!important
+	display: flex
+	align-items: center
+	flex-direction: column;
+
+/**
+ * @section Checkout content
+ */
+.entry-content
+	margin: 0!important
+
