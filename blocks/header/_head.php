@@ -16,7 +16,6 @@
 <!-- ios safari-->
 <meta name="apple-mobile-web-app-status-bar-style" content="#000"/>
 <!-- Preloading fonts-->
-<script src="js/webfont-loaded.js" async="async"></script>
 <link rel="preload" href="#" as="font" type="font/woff2" crossorigin="crossorigin"/>
 <!-- Preload Styles-->
 <style>body{opacity:0;overflow-x:hidden;} html{background-color: #000;}</style>

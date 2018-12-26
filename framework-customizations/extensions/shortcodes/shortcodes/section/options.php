@@ -43,6 +43,11 @@ $options = array(
 		'label'        => __('After HTML code', 'fw'),
 		'desc'  	   => __('HTML code после основного конента секции', 'fw'),
 		'type'         => 'text',
+	),
+	'section_attributes' => array(
+		'label'        => __('Section attributes', 'fw'),
+		'desc'  	   => __('Атрибуты секции', 'fw'),
+		'type'         => 'text',
 	)
 
 );
