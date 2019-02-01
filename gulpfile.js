@@ -349,6 +349,7 @@ var paths = {
             './images/Favicon/*.png',
             './images/Favicon/*.jpg',
             './images/Favicon/*.JPG',
+            './images/Favicon/*.ico',
         ],
         icons: [
             './images/Icons/*.JPG',
