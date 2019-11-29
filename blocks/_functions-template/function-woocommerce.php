@@ -4,13 +4,13 @@
  * Объявление поддержки WooCommerce в теме
  */
 function mytheme_add_woocommerce_support() {
-	
-		#Изображение товаров
-	add_theme_support( 'woocommerce', array(
-		'thumbnail_image_width' => 150,
-		'single_image_width'    => 300,
+  
+    #Изображение товаров
+  add_theme_support( 'woocommerce', array(
+    'thumbnail_image_width' => 150,
+    'single_image_width'    => 300,
 
-		#Ряды товаров
+    #Ряды товаров
         'product_grid'          => array(
             'default_rows'    => 3,
             'min_rows'        => 1,
@@ -19,7 +19,7 @@ function mytheme_add_woocommerce_support() {
             'min_columns'     => 1,
             'max_columns'     => 6,
         ),
-	) );
+  ) );
 }
 add_action( 'after_setup_theme', 'mytheme_add_woocommerce_support' );
 
@@ -82,8 +82,44 @@ function child_manage_woocommerce_styles() {
  
 }
 
+/**
+ * Check if WooCommerce is activated
+ */
+if ( ! function_exists( 'is_woocommerce_activated' ) ) {
+  function is_woocommerce_activated() {
+    if ( class_exists( 'woocommerce' ) ) { 
+      return true; 
+    } else { 
+      return false; 
+    }
+  }
+}
 
+/**
+ * Load woocomerce function
+ */
+if ( function_exists( 'is_woocommerce_activated' ) ) {
+  require get_template_directory() . '/inc/woocomerce-functions.php';
+}
 
+/**
+   * Display Header Cart
+   *
+   */
+  function my_theme_header_cart() {
+    
+  ?>
+
+  <ul>
+    <li>
+      <?php the_widget( 'WC_Widget_Cart', 'title=' ); ?>
+    </li>
+  </ul>
+  
+  <?php
+    }
+
+add_action( 'theme-woocomerce-header', 'my_theme_header_cart' );
 
 
 

@@ -1,4 +1,5 @@
-var gulp                = require('gulp'), // GULP
+// Переменные GULP
+let gulp                = require('gulp'), // GULP
     sass                = require('gulp-sass'), // Компиляция из SASS в CSS
     autoprefixer        = require('gulp-autoprefixer'), // Добавление вендорных прификсов
     concat              = require('gulp-concat'), // Конкатинация(объединение)
@@ -30,86 +31,47 @@ var gulp                = require('gulp'), // GULP
     responsive          = require('gulp-responsive'), // Изменение изображений
     merge               = require('gulp-merge'); // Объедините несколько потоков в один поток по порядку
 
-// Компиляция из sass в css в папку с темой
+// Пользовательские переменные
+let server = 'DOMEN-NAME.RU'; // - имя домена
+
+// Компиляция из .sass в .css в папку css темы
 gulp.task('sass-style', function () {
-    return gulp.src('sass/style.sass')
-    .pipe(sass({outputStyle: 'expanded'}).on('error' , sass.logError)) // Компиляция в css
-    .pipe(autoprefixer({ // автопрефиксер 
-            browsers: ['last 15 versions', 'ie >= 9', 'and_chr >= 2.3'],
-            cascade: true
-        }))
- // .pipe(browserSync.reload({stream: true})) // livereload pipe
-    .pipe(gulp.dest('./'))
-
-});
-
-// Компиляция из sass в css в папку css
-gulp.task('sass-page', function () {
     return gulp.src([
+        'sass/main.sass',
+        'blocks/page-contents/home/home.sass',
         'blocks/page-contents/404/404.sass',
         'blocks/page-contents/search/search.sass',
-        ])
+        'blocks/page-contents/shop/shop.sass'
+    ])
     .pipe(sass({outputStyle: 'expanded'}).on('error' , sass.logError)) // Компиляция в css
     .pipe(autoprefixer({ // автопрефиксер 
-            browsers: ['last 15 versions', 'ie >= 9', 'and_chr >= 2.3'],
-            cascade: true
+        "overrdebrowserslist": [
+            "last 1 version",
+            "> 1%",
+            "maintained node versions",
+            "not dead"
+          ],
+            cascade: true,
         }))
  // .pipe(browserSync.reload({stream: true})) // livereload pipe
-    .pipe(gulp.dest('css'))
+    .pipe(gulp.dest('./css'))
 
 });
-
-// livereload task
-gulp.task('browser-sync', function() {
-    browserSync.init({
-        proxy: "DOMEN",
-        notify: false
-    });
-});
-
-// Сжатие js
-gulp.task('uglify', function () {
-    return gulp.src('js/scripts.js')
-        .pipe(uglify())
-        .pipe(gulp.dest('dist/js'));
-});
-
-// Сжатие js
-gulp.task('js-settings', function() {
-    return gulp.src('js/settings/settings.js')
-       .pipe(strip()) // Удаление комментариев
-       .pipe(uglify()) // Сжатие js
-       .pipe(rename({ // Переименование файла
-			suffix: ".min",
-		}))
-        .pipe(gulp.dest('js'));
-});
-
- // Конкатинация JS-min файлов
-gulp.task('js-settings-min', function() {
-    return gulp.src([
-    'libs/Settings/settings.min.js'
-    ])
-    .pipe(concat('scripts.js')) // Название файла в который идет конкатинация
-    .pipe(strip()) // Удаление комментариев
-    .pipe(rename({ // Переименование файла
-            suffix: ".min",
-        }))
-    .pipe(gulp.dest('dist/js'));
-});
-
-gulp.task('scripts', gulp.series('js-settings', 'js-settings-min')); 
 
 // Оптимизация и минификая css
 gulp.task('css-min', function() {
-    return gulp.src('css/style.css')
+    return gulp.src([
+        'css/main.css',
+        'css/404.css',
+        'css/search.css',
+    ])
     .pipe(stripCssComments({ // Удаление комментариев
         preserve: false
     }))
     .pipe(uncss({ // Удаление лишних классов
         html: [ // Файлы в которых проверяются CSS классы на использование
-        '*.html',
-        'http://cv56344.tmweb.ru/',
+        server,
+        '**/*.php'
         ],
         ignore: [
         /\.webfont-loaded/, 
@@ -142,6 +104,28 @@ gulp.task('critical', function (cb) {
         width: 1920,
         height: 480
     });
+});
+
+// livereload task
+gulp.task('browser-sync', function() {
+    browserSync.init({
+        proxy: server,
+        browser: 'Firefox',
+        injectChanges: false,
+        notify: false
+    });
+});
+
+
+// Сжатие js
+gulp.task('scripts', function() {
+    return gulp.src('js/scripts.js')
+       .pipe(strip()) // Удаление комментариев
+       .pipe(uglify()) // Сжатие js
+       .pipe(rename({ // Переименование файла
+			suffix: ".min",
+		}))
+        .pipe(gulp.dest('js'));
 });
 
 
@@ -307,13 +291,12 @@ function clean() {
 // Наблюдение
 gulp.task('watch', function() {
     // Наблюдение
-    gulp.watch('sass/**/*.sass' , gulp.parallel('sass-style', 'sass-page')); 
-    gulp.watch('blocks/**/*.sass' , gulp.parallel('sass-style', 'sass-page')); 
-    gulp.watch('js/settings/settings.js' , gulp.parallel('scripts'));
+    gulp.watch('sass/**/*.sass' , gulp.parallel('sass-style')); 
+    gulp.watch('blocks/**/*.sass' , gulp.parallel('sass-style')); 
     // Обновление страницы
-    gulp.watch('./style.css').on('change', browserSync.reload); // reload css
+    gulp.watch('css/main.css').on('change', browserSync.reload); // reload css
     gulp.watch('**/*.php').on('change', browserSync.reload); // reload php
-    gulp.watch('js/settings/settings.js').on('change', browserSync.reload); // reload js
+    gulp.watch('js/*.js').on('change', browserSync.reload); // reload js
 });
 
 // Выгрузка на хостинг
@@ -693,12 +676,11 @@ gulp.task('build-htaccess', function() {
         
     // Выгрузка в папку dist
     return merge(destToDistSettingsHtaccess)
-        /*.pipe(rename({
+        .pipe(rename({
             basename: ".",
             extname: "htaccess"
-        }))*/
+        }))
         .pipe(gulp.dest(paths.dist.dist));
-
 });
 
 // Выгрузка в папку dist
@@ -718,9 +700,9 @@ gulp.task('build-scrin', function() {
 gulp.task('build', gulp.series(
     'clean',
     'sass-style',
-    'sass-page',
-    'scripts',
-    'build-css', 
+    'build-css',
+    'build-cssProject',
+    'css-min',
     'build-fonts', 
     'build-images', 
     'build-favicon', 
@@ -729,7 +711,6 @@ gulp.task('build', gulp.series(
     'build-jpegxr',
     'build-og', 
     'build-svg', 
-    'build-webp',
     'build-sprite',
     'build-svg-sprite',
     'build-fc',
@@ -742,12 +723,10 @@ gulp.task('build', gulp.series(
     'build-wc',
     'build-php',
     'dest-txt',
-    'build-cssProject',
     'build-settings',
     'build-htaccess',
-    'build-scrin',
-
+    'build-scrin'
 )); 
  
 // Команды по умолчанию
-gulp.task('default', gulp.parallel('watch', 'sass-style', 'sass-page', 'scripts', 'browser-sync')); 
+gulp.task('default', gulp.parallel('watch', 'sass-style', 'browser-sync')); 

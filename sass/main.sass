@@ -1,0 +1,33 @@
+
+/* 
+	* @package Basic site styles
+ * ----------------------------------------- */
+
+// Переменные
+@import "variables"
+
+// Библиотеки
+@import "libs"
+
+// Шрифты
+@import "fonts"
+
+// Components
+@import "_components/components.sass";
+
+// Header
+@import "../blocks/header/header.sass";
+
+// Page content
+@import "_basic-content/basic-content.sass"
+@import "../blocks/page-contents/home/_home-content.sass";
+@import "../blocks/page-contents/404/_404-content.sass";
+
+// Subpages 
+@import "../blocks/page-contents/_subpages-template/_subpages-content.sass";
+
+// Footer
+@import "../blocks/footer/footer.sass";
+
+// Media
+@import "media";

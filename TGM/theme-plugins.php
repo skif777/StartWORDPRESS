@@ -63,11 +63,11 @@ function Tgm_register_required_plugins() {
 		array(
 			'name'               => 'Unyson', // The plugin name.
 			'slug'               => 'unyson', // The plugin slug (typically the folder name).
-			'source'             => dirname( __FILE__ ) . '/lib/Plugins/unyson.2.7.12.zip', // The plugin source.
+			'source'             => dirname( __FILE__ ) . '/lib/Plugins/unyson.2.7.22.zip', // The plugin source.
 			'required'           => true, // If false, the plugin is only 'recommended' instead of required.
-			'version'            => '2.7.12', // E.g. 1.0.0. If set, the active plugin must be this version or higher. If the plugin version is higher than the plugin version installed, the user will be notified to update the plugin.
-			'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
-			'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
+			'version'            => '2.7.22', // E.g. 1.0.0. If set, the active plugin must be this version or higher. If the plugin version is higher than the plugin version installed, the user will be notified to update the plugin.
+			'force_activation'   => true, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
+			'force_deactivation' => true, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
 			'external_url'       => '', // If set, overrides default API URL and points to an external URL.
 			'is_callable'        => '', // If set, this callable will be be checked for availability to determine if a plugin is active.
 		),
@@ -77,8 +77,34 @@ function Tgm_register_required_plugins() {
 			'name'               => 'Disqus', // The plugin name.
 			'slug'               => 'disqus-comment-system', // The plugin slug (typically the folder name).
 			'source'             => dirname( __FILE__ ) . '/lib/Plugins/disqus-comment-system.3.0.16.zip', // The plugin source.
-			'required'           => true, // If false, the plugin is only 'recommended' instead of required.
+			'required'           => false, // If false, the plugin is only 'recommended' instead of required.
 			'version'            => '3.0.16', // E.g. 1.0.0. If set, the active plugin must be this version or higher. If the plugin version is higher than the plugin version installed, the user will be notified to update the plugin.
+			'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
+			'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
+			'external_url'       => '', // If set, overrides default API URL and points to an external URL.
+			'is_callable'        => '', // If set, this callable will be be checked for availability to determine if a plugin is active.
+		),
+
+		// This is an example of how to include a plugin bundled with a theme.
+		array(
+			'name'               => 'WP super cache', // The plugin name.
+			'slug'               => 'wp-super-cache', // The plugin slug (typically the folder name).
+			'source'             => dirname( __FILE__ ) . '/lib/Plugins/wp-super-cache.1.7.0.zip', // The plugin source.
+			'required'           => false, // If false, the plugin is only 'recommended' instead of required.
+			'version'            => '1.7.0', // E.g. 1.0.0. If set, the active plugin must be this version or higher. If the plugin version is higher than the plugin version installed, the user will be notified to update the plugin.
+			'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
+			'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
+			'external_url'       => '', // If set, overrides default API URL and points to an external URL.
+			'is_callable'        => '', // If set, this callable will be be checked for availability to determine if a plugin is active.
+		),
+
+		// This is an example of how to include a plugin bundled with a theme.
+		array(
+			'name'               => 'EWWW Image Optimizer', // The plugin name.
+			'slug'               => 'ewww-image-optimizer', // The plugin slug (typically the folder name).
+			'source'             => dirname( __FILE__ ) . '/lib/Plugins/ewww-image-optimizer.5.1.2.zip', // The plugin source.
+			'required'           => false, // If false, the plugin is only 'recommended' instead of required.
+			'version'            => '5.1.2', // E.g. 1.0.0. If set, the active plugin must be this version or higher. If the plugin version is higher than the plugin version installed, the user will be notified to update the plugin.
 			'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 			'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
 			'external_url'       => '', // If set, overrides default API URL and points to an external URL.
@@ -90,7 +116,7 @@ function Tgm_register_required_plugins() {
 			'name'               => 'iThemes Security', // The plugin name.
 			'slug'               => 'better-wp-security', // The plugin slug (typically the folder name).
 			'source'             => dirname( __FILE__ ) . '/lib/Plugins/better-wp-security.7.2.0.zip', // The plugin source.
-			'required'           => true, // If false, the plugin is only 'recommended' instead of required.
+			'required'           => false, // If false, the plugin is only 'recommended' instead of required.
 			'version'            => '7.2.0', // E.g. 1.0.0. If set, the active plugin must be this version or higher. If the plugin version is higher than the plugin version installed, the user will be notified to update the plugin.
 			'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 			'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
@@ -103,7 +129,7 @@ function Tgm_register_required_plugins() {
 			'name'               => 'Open graph', // The plugin name.
 			'slug'               => 'opengraph', // The plugin slug (typically the folder name).
 			'source'             => dirname( __FILE__ ) . '/lib/Plugins/opengraph.1.8.2.zip', // The plugin source.
-			'required'           => true, // If false, the plugin is only 'recommended' instead of required.
+			'required'           => false, // If false, the plugin is only 'recommended' instead of required.
 			'version'            => '1.8.2', // E.g. 1.0.0. If set, the active plugin must be this version or higher. If the plugin version is higher than the plugin version installed, the user will be notified to update the plugin.
 			'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 			'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
@@ -116,7 +142,7 @@ function Tgm_register_required_plugins() {
 			'name'               => 'Schema', // The plugin name.
 			'slug'               => 'schema', // The plugin slug (typically the folder name).
 			'source'             => dirname( __FILE__ ) . '/lib/Plugins/schema.zip', // The plugin source.
-			'required'           => true, // If false, the plugin is only 'recommended' instead of required.
+			'required'           => false, // If false, the plugin is only 'recommended' instead of required.
 			'version'            => '1.7.2', // E.g. 1.0.0. If set, the active plugin must be this version or higher. If the plugin version is higher than the plugin version installed, the user will be notified to update the plugin.
 			'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 			'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
@@ -124,25 +150,25 @@ function Tgm_register_required_plugins() {
 			'is_callable'        => '', // If set, this callable will be be checked for availability to determine if a plugin is active.
 		),
 
-		// This is an example of how to include a plugin bundled with a theme.
-		array(
-			'name'               => 'Yoast SEO', // The plugin name.
-			'slug'               => 'yoast-seo', // The plugin slug (typically the folder name).
-			'source'             => dirname( __FILE__ ) . '/lib/Plugins/wordpress-seo.9.2.1.zip', // The plugin source.
-			'required'           => true, // If false, the plugin is only 'recommended' instead of required.
-			'version'            => '9.2.1', // E.g. 1.0.0. If set, the active plugin must be this version or higher. If the plugin version is higher than the plugin version installed, the user will be notified to update the plugin.
-			'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
-			'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
-			'external_url'       => '', // If set, overrides default API URL and points to an external URL.
-			'is_callable'        => '', // If set, this callable will be be checked for availability to determine if a plugin is active.
-		),
+			// This is an example of how to include a plugin bundled with a theme.
+			array(
+				'name'               => 'Yoast SEO', // The plugin name.
+				'slug'               => 'yoast-seo', // The plugin slug (typically the folder name).
+				'source'             => dirname( __FILE__ ) . '/lib/Plugins/wordpress-seo.12.6.2.zip', // The plugin source.
+				'required'           => false, // If false, the plugin is only 'recommended' instead of required.
+				'version'            => '12.6.2', // E.g. 1.0.0. If set, the active plugin must be this version or higher. If the plugin version is higher than the plugin version installed, the user will be notified to update the plugin.
+				'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
+				'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
+				'external_url'       => '', // If set, overrides default API URL and points to an external URL.
+				'is_callable'        => '', // If set, this callable will be be checked for availability to determine if a plugin is active.
+			),
 
 		// This is an example of how to include a plugin bundled with a theme.
 		array(
 			'name'               => 'Akismet', // The plugin name.
 			'slug'               => 'akismet', // The plugin slug (typically the folder name).
 			'source'             => dirname( __FILE__ ) . '/lib/Plugins/akismet.4.1.zip', // The plugin source.
-			'required'           => true, // If false, the plugin is only 'recommended' instead of required.
+			'required'           => false, // If false, the plugin is only 'recommended' instead of required.
 			'version'            => '4.1', // E.g. 1.0.0. If set, the active plugin must be this version or higher. If the plugin version is higher than the plugin version installed, the user will be notified to update the plugin.
 			'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 			'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
@@ -155,7 +181,7 @@ function Tgm_register_required_plugins() {
 			'name'               => 'Amp', // The plugin name.
 			'slug'               => 'amp', // The plugin slug (typically the folder name).
 			'source'             => dirname( __FILE__ ) . '/lib/Plugins/amp.1.0.0.zip', // The plugin source.
-			'required'           => true, // If false, the plugin is only 'recommended' instead of required.
+			'required'           => false, // If false, the plugin is only 'recommended' instead of required.
 			'version'            => '1.0.0', // E.g. 1.0.0. If set, the active plugin must be this version or higher. If the plugin version is higher than the plugin version installed, the user will be notified to update the plugin.
 			'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 			'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
@@ -168,7 +194,7 @@ function Tgm_register_required_plugins() {
 			'name'               => 'Google sitemap generator', // The plugin name.
 			'slug'               => 'google-sitemap-generator', // The plugin slug (typically the folder name).
 			'source'             => dirname( __FILE__ ) . '/lib/Plugins/google-sitemap-generator.4.0.9.zip', // The plugin source.
-			'required'           => true, // If false, the plugin is only 'recommended' instead of required.
+			'required'           => false, // If false, the plugin is only 'recommended' instead of required.
 			'version'            => '4.0.9', // E.g. 1.0.0. If set, the active plugin must be this version or higher. If the plugin version is higher than the plugin version installed, the user will be notified to update the plugin.
 			'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 			'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
@@ -181,7 +207,7 @@ function Tgm_register_required_plugins() {
 			'name'               => 'WP-postratings', // The plugin name.
 			'slug'               => 'wp-postratings', // The plugin slug (typically the folder name).
 			'source'             => dirname( __FILE__ ) . '/lib/Plugins/wp-postratings.1.85.zip', // The plugin source.
-			'required'           => true, // If false, the plugin is only 'recommended' instead of required.
+			'required'           => false, // If false, the plugin is only 'recommended' instead of required.
 			'version'            => '1.85', // E.g. 1.0.0. If set, the active plugin must be this version or higher. If the plugin version is higher than the plugin version installed, the user will be notified to update the plugin.
 			'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 			'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.

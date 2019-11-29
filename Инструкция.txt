@@ -1,69 +1,127 @@
 1--ПОДКЛЮЧЕНИЕ ЛОКАЛЬНОГО ДОМЕНА
-   - Создать папку домена
-   1.1 OpenServer
+   - Создать папку домена на жестком диске
+   1.1 Сервер OpenServer
        1.1 Перейти в настройки/домены
        1.2 Внести имя домена и выбрать папку, нажать добавить
-       1.3 Имя домена добавить в gulpfile.js в таске browser-sync (proxy: "имя домена")
+       1.3 Cоздать базу данных (UTF8_general_ci).
 
 2--УСТАНОВКА
-   1. Устанавливаем WP (Распаковывем WP в папку домена).
-   2. Устанавливаем тему (В папку wp-content/themes распаковываем стартовый шаблон underscores).
+   1. Устанавливаем WP (Распаковывем WP в папку домена https://ru.wordpress.org/download/).
+   2. Устанавливаем тему (В папку wp-content/themes распаковываем стартовый шаблон underscores https://underscores.me/).
    3. В установленную тему размещаем стартовый шаблон StartWORDPRESS.
-   4. Cоздать базу данных (UTF8_general_ci).
+      3.1 Имя домена добавить в gulpfile.js в переменную "server"
+   4. Произвести настройки сервера необходимых для работы плагинов и CMS (php, MySQL или MariaDB, использовать желательно Apache или Nginx)
    5. Установить WP (Ввести имя базы, пароль базы, имя пользователя - root).
    6. Активировать в ПУ установленную тему (внешний вид/темы).
-   8. Установить Unison, активировать и загрузить конструктор страниц(Visual Page Builder).
-
-3--НАСТРОЙКА ПЕРЕД ВЕРСТКОЙ
-   1. Установить нужные плагины
-   1. Отключить Emoji если нет в нем обходимости (см. файл function-Disable-Emoji.php)
-   2. Настроить head
-   3. Переподключить стили и js файлы в footer и отключить не нужные
+   7. Подключить плагин TGM в файле function.php через require (см. как в папке blocks/_function-template/function-Load-TGM-plugin.php)
+   8. Установить Unison, активировать и загрузить конструктор страниц(Конструктор страниц/Visual Page Builder).
 
 3--УСТАНОВКА ПЛАГИНОВ
    1. Определить необходимые плагины
    1. Разместить архивы плагинов в папку TGM/lib/Plugins
-   1. Подключить TGM (см. файл function-Load-TGM-plugin.php ).
    2. Подключить плагины в файле theme-plugins.php
    3. Если не используется плагин Yoast SEO, то подключить плагин open graph 
 
-4--НАСТРОЙКА HEAD
-   1. В header.php заменить тег с viewport и вставить настройки из файла function-head.php
-   2. В function.php добавить настройки из файла function-head.php
-   3. Тег <body> добавить сообщение для обновления браузера для старого IE
+3--НАСТРОЙКА ПЕРЕД ВЕРСТКОЙ
+   1. Установить нужные плагины в панели управления
+   2. Отключить Emoji если нет в нем обходимости (в файл function.php подключить файл "Disable-Emoji" из папки inc)
+   3. Настроить head
+      3.1 В function.php подключить через require файл head-function.php (в папке inc)
+      3.2 Удалить из файла header.php тег с viewport (<meta name="viewport" content="width=device-width, initial-scale=1">)
 
-5--ПОДКЛЮЧЕНИЕ СТИЛЕЙ И JS
-   5.1 Добавить функцию в function.php из файла function-inspect_scripts_and_styles.php (Для просмотра подключенных стилей и js)
-   5.2 Отключить не нужные и подключенные в head стили и js файлы (см. файл function-scripts-and-styles.php)
-   5.3 Подключить в footer стили и js файлы (см. файл function-scripts-and-styles.php)
+   5. В вверх тега <body> добавить сообщение для обновления браузера для старого IE (см. blocks/header/browser-update.php)
+   6. Заменить изображения фавикон для темы (если есть) в папке images/Favicon
+   7. Установить gulp и package.json (yarn/npm init и установить плагины)
+      7.1 Открыть командную строку и запустить gulp
+   8. Переподключить стили и js файлы в footer и отключить не нужные
+      8.1 Добавить функцию инспектирования в function.php (см. blocks/_functions-template/function-inspect_scripts_and_styles.php)
+      8.2 Подключить часть стилей css и скрипты js в head
+          8.2.1 Подключить через require в function.php файл enqueue-scripts.php из папки inc
+          8.2.2 Перенести из function.php функцию "Enqueue scripts and styles" в файл queue-scripts.php
+          8.2.3 В функции "Enqueue scripts and styles" изменить привязку к хуку через add_action с wp_enqueue_scripts на wp_footer
+      8.3 Деактивировать стили css и скрипты js из head
+	  8.3.1 Добавить в файл queue-scripts.php функцию деактивация с привязкой через add_action к хуку wp_enqueue_scripts с большим приоритетом (см. файл blocks/_functions-template/function-scripts-and-styles.php)
+          8.3.2 Деактивированные стили и файлы js подключить в функцию "Enqueue scripts and styles" через 
+wp_enqueue_style( 'my-style' ); и wp_enqueue_script( 'my-script' );
+          8.3.3 Подключение jqueru показано в файле blocks/_functions-template/function-scripts-and-styles.php
+          8.3.4 Подключить webfont-loaded.js
+          8.3.5 К js файлам добавить атрибут async (пример в файле blocks/_functions-template/function-scripts-and-styles.php)
+          8.3.6 Свои .css и .js файлы сначала нужно зарегистрировать через фкнкцию wp_register_style() и wp_register_script(), потом подключить через wp_enqueue
+
+
+
+--ПОДГОТОВКА К ВЕРТСКЕ
+  1. Нарезать картинки
+     1.1 Векторная графика в формате .svg
+     1.2 Растровая графика в формате .png или .jpeg
+     1.3 Иконки в папку Icons
+     1.4 Иконки для создания спрайта css в папку Sprite/png(только для HTTP/1.x)
+     1.5 Иконки для создания svg спрайта в папку Sprite/svg
+     1.7 Изображения во всех форматах(кроме svg и иконок) должны иметь МЕНЬШИЕ по размеру дубли с приставками -middle и -small (image-middle.jpg, image-small.webp) ( с плагином EWWW Image Optimizer не делать )
+     1.8 Изображения во всех форматах(кроме svg и иконок) должны иметь дубли в 2 и 3 раза БОЛЬШЕ с суфиксом @2 и @3 (image@2.webp, image@3.png) ( с плагином EWWW Image Optimizer не делать )
+  2. Скачать используемые шрифты
+  3. Создать переменные в файле _variables.sass
+  4. Подключить необходимые CSS библиотеки в файле _libs.sass
+  5. Загрузить jpeg изображения сайта в папку проекта images
+
+--ПОДКЛЮЧЕНИЕ ШРИФТОВ
+  1. Сконвертировать шрифты в формат woff2, woff
+     1.1 Через сайт - https://transfonter.org/
+  2. Выгрузить сконвертированные шрифты в папку проекта fonts
+  3. Внести название шрифтов в файл _variables.sass
+  4. Настроить системные шрифты в _variables.sass (они должны быть похожи на подключенные)
+  5. Настроить ширину текста "letter-spacing" у шрифтов в файле _text.sass
+  6. Подключить необходимые шрифты в файле _fonts.sass
+  7. Установить font-display (в файле _fonts.sass)
+  8. Внести название шрифтов в файле webfont-loaded.js
+     8.1 Внести названия шрифтов в переменные
+     8.2 Внести названия темы для загрузки fontfaceobserver.js
+  9. Подключить шрифты на предзагрузку в head
+  10. При верстке шрифты подключать через css классы (f1-R, f1-B, f2-R и т.д.)
+
 
 ---ВЕРСТКА
-   1. Подключение css и script.js в function.
-   2. Подключение атрибутов head и webfontloaded.js в wp_head.
-   3. Подключить gulp (yarn/npm init и установить плагины).
-   4. Создать главную страницу с ярлыком homepage.
-   5. Сделать её статической (Настройки -> чтение).
-   6. Создать страницу .php в папку с темой и назвать page-homepage.php (Удалить оттуда функцию комментарии и сайдбар. Подключить контект страницы в get_template_part).
-   7. Создать контент страницы в папке template-parts. (content-homepage.php. Удалить оттуда все кроме the_content и entry-content) 
-   8. Подключить туда секции
-   9. Вставить элементы в header.php
 
-  10. Верстать
+
+   4. Создать главную страницу с ярлыком(slug) homepage. (в ПУ)
+   5. Сделать её статической (Настройки -> чтение).
+   6. Сделать дубль страницы page.php и назвать page-homepage.php (Удалить оттуда функцию комментарии и сайдбар. Подключить контект страницы в get_template_part).
+   7. Создать контент страницы в папке template-parts. (content-homepage.php. Удалить оттуда все кроме the_content();) 
+   8. Подключить туда секцию blocks/page-contents/_sections-template/grids/grids.html (Скопировать или include)
+
+  10. Запустить GULP
+  12. Открыть FireFox включить ремим адаптивного дизайна
+      12.1 Включить плагин pixel perfect и загрузить изображение сайта
+      12.2 Установить ширину изображения сайта
+      12.3 Настроить контейнер контента
+  13. Настроить систему сеток
+     13.1 Bootstrap 4
+         13.1.1 Открыть файл _variables.scss (libs/bootstrap/scss/)
+         13.1.2 Установить ширину контейнера + 15px ($container-max-widths)
+         13.1.3 Установить ширину контрольной точки ($grid-breakpoints)
+         13.1.4 Установить растояние между колонками ($grid-gutter-width)
+  14. Верстать
 
 --ВЕРСТКА ИЗОБРАЖЕНИЙ
-  -  У изображений должны быть дубли меньшего размера для маленьких экранов и большего для мониторов большей плотности
-  -  Все изображения должны быть в теге <picture>
+  - С использованием плагина EWWW Image Optimizer верстать как обычно через тег img (без создания дублей)
   1. С использование плагина LazyLoad
+     1.0 Все изображения должны быть в теге <picture>
      1.1 К тегу img добавлять класс lazy
      1.2 Вместо src использовать data-lazy-src
      1.3 Вместо srcset использовать data-lazy-srcset
      1.4 Смотреть шаблон в папке plugins/LazyLoad Webp/LazyLoad Webp.jade
+     1.5 У изображений должны быть дубли меньшего размера для маленьких экранов и большего для мониторов большей плотности
   2. Без плагина
      2.1 Делать по шаблону в папке _sections-template/_picture/picture.jade
   3. Верстка через CSS 
      3.1 Делать по шаблону в папке _sections-template/_picture/picture.sass
 
+--ПОДКЛЮЧЕНИЕ СКРИПТОВ JQUERY и JS
+1. Загрузить файл js в папку js и вносить настройки плагина в этом файле
+2. Подключить CSS файл в файл sass/_libs.sass
+3. Подключить js файл в function.php
+
 ---ПОДКЛЮЧЕНИЕ WOOCOMERCE
 1. Установить плагин WC.
-2. Добавить поддержку в function.php
+2. Добавить поддержку в function.php (см. файл blocks/function-woocommerce.php)
 3. Переименовать страницу магазин в каталог
