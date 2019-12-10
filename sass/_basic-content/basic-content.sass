@@ -1,4 +1,4 @@
-@import '../../blocks/page-contents/_sections-template/cookie/cookie.sass'
+//@import '../../blocks/page-contents/_sections-template/cookie/cookie.sass'
 @import '../../blocks/page-contents/_sections-template/browserupgrade/browserupgrade.sass'
 
 /**
@@ -14,7 +14,7 @@ body
 	font-family: $system-font
 	opacity: 1
 .webfont-loaded body
-	font-family: $font1-Regular
+	font-family: $font-text
 
 
 /**
@@ -25,3 +25,18 @@ main
 .site
 .site-content
 .entry-content
+
+/**
+ * @section theme settings
+ */
+.th-container
+	display: flex;
+	margin-right: auto;
+	margin-left: auto;
+	position: relative;
+	max-width: 1057px;
+
+.elementor-heading-title
+	font-family: inherit!important
+.elementor-widget-text-editor
+	font-family: inherit!important

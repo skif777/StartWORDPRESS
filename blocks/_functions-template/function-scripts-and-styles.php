@@ -5,9 +5,11 @@
  */
 function new_project_2_scripts() {
 
-  $min = '.min'; // приисвоит значение .min для подключения минифиц. файлов
+  $min = ''; // приисвоит значение .min для подключения минифиц. файлов
 
-  wp_enqueue_style( 'new-project-2-main-style', get_template_directory_uri() . '/css/main' . $min . '.css', array(), '20151215', true );
+  wp_register_style( 'new-project-2-main-style', get_template_directory_uri() . '/css/main' . $min . '.css', array(), '1.2', 'all');
+
+  wp_enqueue_style( 'new-project-2-main-style' );
   wp_enqueue_style( 'new-project-2-style', get_stylesheet_uri() );
   wp_enqueue_style( 'wp-postratings' );
   wp_enqueue_style( 'wp-block-library' );
@@ -21,7 +23,13 @@ function new_project_2_scripts() {
   wp_enqueue_script( 'new-project-2-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
   wp_enqueue_script( 'new-project-2-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
   wp_enqueue_script( 'new-project-2-responsivetabs', get_template_directory_uri() . '/js/jquery.responsivetabs.js', array('jquery'), '20151215', true );
-  wp_enqueue_script( 'new-project-2-bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array(), '20151215', true );
+
+  wp_register_script( 'new-project-2-popper', get_template_directory_uri() . '/js/popper.min.js', array(), '20151215'. true );
+  wp_enqueue_script( 'new-project-2-popper' );
+
+  wp_register_script( 'new-project-2-bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array(), '20151215'. true );
+  wp_enqueue_script( 'new-project-2-bootstrap' );
+
   wp_enqueue_script( 'new-project-2-imagesloaded', get_template_directory_uri() . '/js/imagesloaded.pkgd.min.js', array(), '20151215', true );
   wp_enqueue_script( 'new-project-2-masonry', get_template_directory_uri() . '/js/masonry.pkgd.min.js', array(), '20151215', true );
 
@@ -42,46 +50,6 @@ function new_project_2_scripts() {
 	wp_enqueue_script( 'jquery' );
 }
 add_action( 'wp_footer', 'new_project_2_scripts' );
-
-/*
- * Отключение скриптов и стилей
- */
-function my_theme_disable_scripts() {
-  if ( !is_page('location') ) {
-
-    wp_enqueue_script( 'new-project-webfont-loaded', get_template_directory_uri() . '/js/webfont-loaded.js', array(), '20151215', false );
-    //wp_enqueue_script( 'dfdg', get_template_directory_uri() . 'js/ajax-add-to-cart.js', array(), '20151215', false );
-
-  	// Снятие с регистрации стилей
-	//wp_deregister_style( 'megamenu-css' ); 
-
-	// Отключение стилей
-	wp_dequeue_style( 'wp-postratings' ); 
-  wp_dequeue_style( 'wp-block-library' );
-  wp_dequeue_style( 'fw-ext-builder-frontend-grid' );
-  wp_dequeue_style( 'fw-ext-forms-default-styles' );
-  wp_dequeue_style( 'wc-block-style-css' );
-  wp_dequeue_style( 'woocommerce-inline' );
-  wp_dequeue_style( 'megamenu' );
-  wp_dequeue_style( 'wc-block-style' );
-  wp_dequeue_style( 'dashicons' );
-
-
-  // Снятие с регистрации скриптов
-	wp_deregister_script( 'jquery' );
-	wp_deregister_script( 'wp-embed' );
-
-	// Отключение скриптов
-  wp_dequeue_script( 'wp-postratings' );
-  wp_dequeue_script( 'woocommerce' );
-  wp_dequeue_script( 'wc-cart-fragments' );
-  wp_dequeue_script( 'wc-add-to-car' );
-  wp_dequeue_script( 'hoverIntents' );
-  wp_dequeue_script( 'megamenu' );
-
-  }
-}
-add_action( 'wp_enqueue_scripts', 'my_theme_disable_scripts', 9999 );
 
 /*
  * Добавление атрибута async к js файлам
